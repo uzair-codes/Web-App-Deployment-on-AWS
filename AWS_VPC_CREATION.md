@@ -1,4 +1,4 @@
-####🌐 AWS 2-Tier VPC Project with ALB, NAT Gateway & Bastion Host
+#🌐 AWS 2-Tier VPC Project with ALB, NAT Gateway & Bastion Host
 
 ````markdown
 A step-by-step AWS project to build a "secure, production-like environment" using a two-tier VPC architecture with public
