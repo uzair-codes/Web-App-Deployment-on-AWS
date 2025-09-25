@@ -92,7 +92,7 @@ AWS will create:
 ````
 
  4️⃣ SSH & Deploy App
-````markdown
+
  SSH to Bastion Host
 ```bash
 ssh -i my-key.pem ubuntu@<BASTION_PUBLIC_IP>
@@ -119,7 +119,7 @@ python3 -m http.server 3000
 ```
 
 > ✅ This starts a Python HTTP server on port `3000` inside the private instance.
-````
+
 
 
  5️⃣ Create Target Group & ALB
