@@ -100,6 +100,7 @@ AWS will create:
 ssh -i my-key.pem ubuntu@<BASTION_PUBLIC_IP>
 ````
 
+
  Copy PEM to Bastion (for private SSH)
 
 ```bash
