@@ -1,7 +1,7 @@
 # Highly Available abs Secure Web App Deployment on AWS
-## Feel free to fork/clone or download my portfolio code from [personal-portfolio](https://github.com/uzair-codes/personal-portfolio)
-Check it out live 👉 [[https://syed-uzair-shah.vercel.app](https://syed-uzair-shah.vercel.app/)]
-
+#### Feel free to fork/clone or download my portfolio code from [personal-portfolio](https://github.com/uzair-codes/personal-portfolio)
+#### Check it out live 👉 [[https://syed-uzair-shah.vercel.app](https://syed-uzair-shah.vercel.app/)]
+---
 There are two ways we can achieve this, pick whichever fits:
  - Manual / one-time (SSH via Bastion) — quick, good for testing.
  - Automated (recommended) — cloud-init / user-data in your Launch Template — required if
@@ -161,81 +161,15 @@ This script:
   - Runs npm ci and npm run build
   - Deploys the build to Nginx and starts nginx
   - Sends simple logs to /var/log/user-data.log
-## cloud-init / user-data script
-```bash
-#!/bin/bash
-set -xe
-
-LOGFILE=/var/log/user-data.log
-exec > >(tee -a ${LOGFILE} ) 2>&1
-
-# update packages
-apt update && apt upgrade -y
-
-# install dependencies
-apt install -y curl git build-essential ca-certificates
-
-# Node 18
-curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-apt-get install -y nodejs
-
-# Install nginx
-apt-get install -y nginx
-systemctl enable nginx
-
-# Variables - set these before adding to launch template if you want custom values
-GITHUB_REPO="https://github.com/<GITHUB_USER>/personal-portfolio.git"
-APP_DIR="/opt/personal-portfolio"
-
-# Clone repo (safe if repo already exists)
-rm -rf ${APP_DIR}
-git clone ${GITHUB_REPO} ${APP_DIR} || { echo "git clone failed"; exit 1; }
-
-cd ${APP_DIR}
-
-# install and build
-npm install --production=false
-npm run build
-
-# Deploy to webroot
-rm -rf /var/www/personal-portfolio
-mkdir -p /var/www/personal-portfolio
-cp -r build/* /var/www/personal-portfolio
-chown -R www-data:www-data /var/www/personal-portfolio
-
-# Nginx config (ensure uses port 80 — change to 8000 if you prefer)
-cat > /etc/nginx/sites-available/personal-portfolio <<'EOF'
-server {
-    listen 80;
-    server_name _;
-
-    root /var/www/personal-portfolio;
-    index index.html;
-
-    location / {
-        try_files $uri /index.html;
-    }
-    location ~* \.(?:css|js|jpg|jpeg|gif|png|svg|ico|woff2?|ttf)$ {
-        expires 30d;
-        add_header Cache-Control "public, must-revalidate";
-    }
-}
-EOF
-
-ln -fs /etc/nginx/sites-available/personal-portfolio /etc/nginx/sites-enabled/personal-portfolio
-rm -f /etc/nginx/sites-enabled/default
-nginx -t && systemctl restart nginx
-
-echo "Deployment finished at $(date)" >> ${LOGFILE}
-```
+## For cloud-init / user-data script refer to [**`cloud-init.sh`**](https://github.com/uzair-codes/Web-App-Deployment-on-AWS/blob/main/cloud-init.sh)
 ###How to use
- - Replace <GITHUB_USER> with your GitHub username or repo URL (use token / SSH if repo is private).
+ - Replace **`<GITHUB_USER>`** with your GitHub username or repo URL (use token / SSH if repo is private).
  - Add this script to your Launch Template → User data field (paste the script).
  - Update your ASG to use the new Launch Template / version.
  - When ASG launches instances, each instance will provision itself and register healthy to the Target Group.
 **Why auto user-data is best: when an ASG replaces an instance, the new instance will automatically deploy your site exactly the same way.**
 
-##If you want to build once and distribute (faster start)
+## If you want to build once and distribute (faster start)
 To avoid building on every instance (saves time):
  - Build locally or in CI (GitHub Actions): npm run build
  - Upload the build/ archive to an S3 bucket (e.g. my-portfolio-builds/latest.tar.gz)
