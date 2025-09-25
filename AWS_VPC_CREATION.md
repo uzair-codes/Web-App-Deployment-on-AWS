@@ -1,14 +1,14 @@
-🌐 AWS 2-Tier VPC Project with ALB, NAT Gateway & Bastion Host
+####🌐 AWS 2-Tier VPC Project with ALB, NAT Gateway & Bastion Host
 
 ````markdown
 A step-by-step AWS project to build a "secure, production-like environment" using a two-tier VPC architecture with public
 & private subnets, NAT Gateway, Application Load Balancer, Auto Scaling Group, and a Bastion Host.  
 We deploy a "simple Python web app on port 3000" inside private subnets and serve it through the ALB.
+````
 
 
-
- ✨ Key Features
-
+✨ Key Features
+````markdown
 - 🏗 "Custom VPC" with 2 public + 2 private subnets across 2 Availability Zones  
 - 🌐 "Internet Gateway" for public access  
 - 🔑 "NAT Gateway" for secure internet access from private subnets  
@@ -16,11 +16,10 @@ We deploy a "simple Python web app on port 3000" inside private subnets and serv
 - 🛡 "Bastion Host" for secure SSH access to private instances  
 - ⚖ "Application Load Balancer" for distributing traffic across EC2 instances  
 - 🐍 "Python Web Server" running a sample app on port 3000  
+````
 
-
-
- 📋 Prerequisites
-
+📋 Prerequisites
+````markdown
 Before you start, make sure you have:
 
 - ✅ "AWS Free-Tier Account"
@@ -28,13 +27,13 @@ Before you start, make sure you have:
 - ✅ Installed:
   - SSH client (e.g., OpenSSH)
   - Git (optional, for version control)
+````
 
 
-
- 🚀 Step-by-Step Setup Guide
+####🚀 Step-by-Step Setup Guide
 
  1️⃣ Create VPC & Subnets
-
+````markdown
 1. Go to "AWS Console" → Search ""VPC""
 2. Click "Create VPC" → Choose "VPC and more"
 3. Configure:
@@ -54,11 +53,11 @@ AWS will create:
 
 > ⚠ "Troubleshooting:"  
 > If you hit *Max Elastic IPs reached*, go to "EC2 → Elastic IPs" → Release unused ones → Retry VPC creation.
-
+````
 
 
  2️⃣ Launch Bastion Host (Jump Server)
-
+````markdown
 1. Go to "EC2 → Launch Instance"
 2. Configure:
    - Name: `Bastion-Host`
@@ -71,11 +70,11 @@ AWS will create:
 3. Create Security Group:
    - Allow "SSH (22)" from *your IP only*
 4. Launch instance and download `.pem` key if not already done.
-
+````
 
 
  3️⃣ Create Auto Scaling Group (ASG)
-
+````markdown
 1. Go to "EC2 → ASG → Launch Templates → Create"
    - Name: `aws-web-app-asg-launch-temp`
    - AMI: Ubuntu 22.04
@@ -90,16 +89,14 @@ AWS will create:
    - Select "private subnets"
    - Desired capacity: `2` (min: `2`, max: `4`)
    - Skip load balancer (we'll add it later)
-
-
+````
 
  4️⃣ SSH & Deploy App
-
+````markdown
  SSH to Bastion Host
 ```bash
 ssh -i my-key.pem ubuntu@<BASTION_PUBLIC_IP>
-````
-
+```
 
  Copy PEM to Bastion (for private SSH)
 
@@ -122,11 +119,11 @@ python3 -m http.server 3000
 ```
 
 > ✅ This starts a Python HTTP server on port `3000` inside the private instance.
-
+````
 
 
  5️⃣ Create Target Group & ALB
-
+````markdown
 1. Go to "EC2 → Target Groups → Create"
 
    * Target type: `Instances`
@@ -142,15 +139,15 @@ python3 -m http.server 3000
    * Create Security Group: allow "HTTP (80)" from anywhere
    * Attach target group created above
 3. Wait until ALB status = "Active"
-
+````
 
 
  6️⃣ Test the Setup
-
+````markdown
 * Copy "ALB DNS Name" → open in browser
 * You should see the app running
 * Stop one EC2 instance in ASG → refresh → ALB still serves from healthy instance
-
+````
 
 
  🔧 Troubleshooting
