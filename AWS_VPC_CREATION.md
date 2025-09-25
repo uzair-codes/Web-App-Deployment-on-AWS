@@ -1,4 +1,4 @@
-🌐 AWS 2-Tier VPC Project with ALB, NAT Gateway & Bastion Host
+# 🌐 AWS 2-Tier VPC Project with ALB, NAT Gateway & Bastion Host
 
 ````markdown
 A step-by-step AWS project to build a "secure, production-like environment" using a two-tier VPC architecture with public
@@ -7,7 +7,7 @@ We deploy a "simple Python web app on port 3000" inside private subnets and serv
 ````
 
 
-✨ Key Features
+## ✨ Key Features
 ````markdown
 - 🏗 "Custom VPC" with 2 public + 2 private subnets across 2 Availability Zones  
 - 🌐 "Internet Gateway" for public access  
@@ -18,7 +18,7 @@ We deploy a "simple Python web app on port 3000" inside private subnets and serv
 - 🐍 "Python Web Server" running a sample app on port 3000  
 ````
 
-📋 Prerequisites
+## 📋 Prerequisites
 ````markdown
 Before you start, make sure you have:
 
@@ -30,9 +30,9 @@ Before you start, make sure you have:
 ````
 
 
-####🚀 Step-by-Step Setup Guide
+# 🚀 Step-by-Step Setup Guide
 
- 1️⃣ Create VPC & Subnets
+ ## 1️⃣ Create VPC & Subnets
 ````markdown
 1. Go to "AWS Console" → Search ""VPC""
 2. Click "Create VPC" → Choose "VPC and more"
@@ -56,7 +56,7 @@ AWS will create:
 ````
 
 
- 2️⃣ Launch Bastion Host (Jump Server)
+ ## 2️⃣ Launch Bastion Host (Jump Server)
 ````markdown
 1. Go to "EC2 → Launch Instance"
 2. Configure:
@@ -73,7 +73,7 @@ AWS will create:
 ````
 
 
- 3️⃣ Create Auto Scaling Group (ASG)
+ ## 3️⃣ Create Auto Scaling Group (ASG)
 ````markdown
 1. Go to "EC2 → ASG → Launch Templates → Create"
    - Name: `aws-web-app-asg-launch-temp`
@@ -91,7 +91,7 @@ AWS will create:
    - Skip load balancer (we'll add it later)
 ````
 
- 4️⃣ SSH & Deploy App
+ ## 4️⃣ SSH & Deploy App
 
  SSH to Bastion Host
 ```bash
@@ -122,7 +122,7 @@ python3 -m http.server 3000
 
 
 
- 5️⃣ Create Target Group & ALB
+ ## 5️⃣ Create Target Group & ALB
 ````markdown
 1. Go to "EC2 → Target Groups → Create"
 
@@ -142,7 +142,7 @@ python3 -m http.server 3000
 ````
 
 
- 6️⃣ Test the Setup
+ ## 6️⃣ Test the Setup
 ````markdown
 * Copy "ALB DNS Name" → open in browser
 * You should see the app running
@@ -150,7 +150,7 @@ python3 -m http.server 3000
 ````
 
 
- 🔧 Troubleshooting
+ ## 🔧 Troubleshooting
 
 | Issue                               | Solution                                                                      |
 | -- | -- |
@@ -162,7 +162,7 @@ python3 -m http.server 3000
 
 
 
- 🎯 Learning Outcomes
+ ## 🎯 Learning Outcomes
 
 By completing this project, you will learn:
 
@@ -175,7 +175,7 @@ By completing this project, you will learn:
 
 
 
- 📝 License
+ ## 📝 License
 
 This project is released under the "MIT License" — feel free to use, modify, and share.
 
