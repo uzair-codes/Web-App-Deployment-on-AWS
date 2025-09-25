@@ -1,7 +1,8 @@
 🌐 AWS 2-Tier VPC Project with ALB, NAT Gateway & Bastion Host
 
 ````markdown
-A step-by-step AWS project to build a "secure, production-like environment" using a two-tier VPC architecture with public & private subnets, NAT Gateway, Application Load Balancer, Auto Scaling Group, and a Bastion Host.  
+A step-by-step AWS project to build a "secure, production-like environment" using a two-tier VPC architecture with public
+& private subnets, NAT Gateway, Application Load Balancer, Auto Scaling Group, and a Bastion Host.  
 We deploy a "simple Python web app on port 3000" inside private subnets and serve it through the ALB.
 
 
